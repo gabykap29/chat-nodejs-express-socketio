@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <style>
+    body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+    #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+    #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+    #input:focus { outline: none; }
+    #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+    #messages { list-style-type: none; margin: 0; padding: 0; }
+    #messages > li { padding: 0.5rem 1rem; }
+    #messages > li:nth-child(odd) { background: #efefef; }
+  
+  .chats{
+    width: 230px;
+  }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Ingrese su usuario...</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="formUsername">
+                    <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button id="btnCargar" class="btn btn-primary">Aceptar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Open first modal</button>
+          <div class="col-6">
+            <ul id="messages"></ul>
+            <form id="form" action="">
+              <input id="input" autocomplete="off" /><button>Send</button>
+            </form>
+          </div>
+          <div class="col-6">
+            <ul id="messagesUser"></ul>
+          </div>
+        </main>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+
+var messages = document.getElementById('messages');
+var form = document.getElementById('form');
+const username = document.getElementById('username');
+var input = document.getElementById('input');
+const btnCargar = document.getElementById('btnCargar');
+const messagesUser = document.getElementById('messagesUser');
+let usernameValue;
+
+btnCargar.addEventListener('click',(e)=>{
+  e.preventDefault();
+   usernameValue = username.value;
+  console.log(usernameValue);
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    socket.on('chat before', function(data) {
+        // var item = document.createElement('li');
+        for(let i = 0; i<data.length;i++){
+            let username = data[i].username;
+            let msg = data[i].msg;
+            messages.innerHTML +=`<div class="alert alert-success chats" role="alert">
+            <span>${username} dice: </span>
+            <p>${msg}</p>
+        </div>`
+        }
+        // item.textContent = msg;
+    
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+      form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (input.value) {
+    let msg = input.value
+    socket.emit('chat message', {msg: msg, username: usernameValue});
+    input.value = '';
+  }
+});
+
+socket.on('chat message', function(data) {
+  // var item = document.createElement('li');
+    if(data.username == usernameValue){
+        messagesUser.innerHTML +=`<div class="alert alert-success chats" role="alert">
+      <span>${data.username} dice: </span>
+      <p>${data.msg}</p>
+  </div>`
+    }else{
+        messages.innerHTML +=`<div class="alert alert-success chats" role="alert">
+      <span>${username} dice: </span>
+      <p>${msg}</p>
+  </div>`
+    }
+  // item.textContent = msg;
+
+  window.scrollTo(0, document.body.scrollHeight);
+});
+
+})
+</script>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

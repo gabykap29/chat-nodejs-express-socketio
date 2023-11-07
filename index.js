@@ -4,6 +4,7 @@ import http from 'http';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 let arrayMgs = [];
+const typingUser = new Set();
 
 
 
@@ -23,14 +24,27 @@ app.get('/', (req, res) => {
   });
 
 io.on('connection', (socket) => {
-    arrayMgs.push({username:'servidor',msg:'BIENVENIDO!'})
+
     socket.emit('chat before', arrayMgs);
     socket.on('chat message', (data) => {
         const {username,msg} = data;
+        if(!data.username){data.username = 'Anónimo';}
         arrayMgs.push(data);
         console.log(arrayMgs);
     io.emit('chat message', data);
     });
+
+    socket.on('user typing', (username) => {
+      socket.broadcast.emit('user typing',username);
+
+  });
+
+  socket.on('user stopped typing', (username) => {
+      socket.broadcast.emit('user has stopped typing', username);
+  })
+
+
+
 });
 
 

@@ -6,19 +6,23 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <style>
-    body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { font-size: small;margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
-    #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-    #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+    #form { background: rgba(0, 0, 0, 0.15); padding-left: 30%; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+    #input { border: none; padding-left: 1%; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
     #input:focus { outline: none; }
     #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
 
     #messages { list-style-type: none; margin: 0; padding: 0; }
     #messages > li { padding: 0.5rem 1rem; }
     #messages > li:nth-child(odd) { background: #efefef; }
-  
   .chats{
     width: 230px;
+    border-radius: 10% 30% 50% 70%;
+  }
+  #divChats{
+    overflow: scroll;
+    height: 90vh;
   }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,76 +34,157 @@
 </head>
 
 <body>
-    <header></header>
     <main>
-        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Ingrese su usuario...</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="formUsername">
-                    <input type="text" class="form-control" placeholder="Username" name="username" id="username">
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button id="btnCargar" class="btn btn-primary">Aceptar</button>
+
+      <div class="row g-0">
+        <div class="col-2">
+          <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 100%; height: 110vh;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+              <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+              <span class="fs-4">Chat Online</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                  Contactos
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                  Contactanos
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                  Customers
+                </a>
+              </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+              <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>mdo</strong>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-10">
+          <header class="pb-3 mb-3 border-bottom bg-dark" style="width: 100%;">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                  <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+        
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                  <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
+                  <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
+                  <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
+                  <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
+                </ul>
+        
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                  <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+        
+                <div class="dropdown text-end">
+                  <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                  </a>
+                  <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                  </ul>
                 </div>
               </div>
             </div>
+          </header>
+          <div class="card">
+            <div class="card-body">
+              <p id="escribir" class="card-text"></p>
+            </div>
           </div>
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Open first modal</button>
-          <div class="col-6">
-            <ul id="messages"></ul>
-            <form id="form" action="">
-              <input id="input" autocomplete="off" /><button>Send</button>
-            </form>
+         
+          <div id="divChats">
+            
+            <div class="list-group" id="messages">
+            </div>
+            <div class="list-group d-flex align-items-end justify-content-lg-end" id="messagesUser"></div>
           </div>
-          <div class="col-6">
-            <ul id="messagesUser"></ul>
-          </div>
-        </main>
+          <form id="form" action="">
+            <input id="input" autocomplete="off" /><button>Send</button>
+          </form>
+        </div>
+      </div>
+    </main>
 
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var socket = io();
-
-var messages = document.getElementById('messages');
-var form = document.getElementById('form');
-const username = document.getElementById('username');
-var input = document.getElementById('input');
-const btnCargar = document.getElementById('btnCargar');
+let socket = io();
+let messages = document.getElementById('messages');
+let form = document.getElementById('form');
+let input = document.getElementById('input');
+let escribir = document.getElementById('escribir');
 const messagesUser = document.getElementById('messagesUser');
 let usernameValue;
 
-btnCargar.addEventListener('click',(e)=>{
-  e.preventDefault();
-   usernameValue = username.value;
-  console.log(usernameValue);
+input.addEventListener('input',()=>{
+  socket.emit('user typing',usernameValue)
 });
 
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
+  usernameValue = prompt('ingresa tu nombre o apodo');
     socket.on('chat before', function(data) {
-        // var item = document.createElement('li');
         for(let i = 0; i<data.length;i++){
             let username = data[i].username;
             let msg = data[i].msg;
-            messages.innerHTML +=`<div class="alert alert-success chats" role="alert">
-            <span>${username} dice: </span>
-            <p>${msg}</p>
+            messages.innerHTML +=`<div class=" d-flex justify-content-center aling-items-center border rounded-pill alert alert-success chats" role="alert">
+            <div> 
+              <span>${username} dice: </span>
+              <p>${msg}</p>  
+            </div>
         </div>`
         }
-        // item.textContent = msg;
     
         window.scrollTo(0, document.body.scrollHeight);
       });
-      form.addEventListener('submit', function(e) {
+
+  socket.on('user typing',function(username){
+
+      escribir.innerHTML = `${username} esta escribiendo...`;
+      setTimeout(() => {
+        escribir.innerHTML = ''
+      },1000)
+    });
+form.addEventListener('submit', function(e) {
   e.preventDefault();
   if (input.value) {
     let msg = input.value
@@ -109,17 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 socket.on('chat message', function(data) {
-  // var item = document.createElement('li');
     if(data.username == usernameValue){
-        messagesUser.innerHTML +=`<div class="alert alert-success chats" role="alert">
+        messagesUser.innerHTML +=`<div class="alert alert-primary chats" role="alert">
       <span>${data.username} dice: </span>
       <p>${data.msg}</p>
   </div>`
+  window.scrollTo(0, document.body.scrollHeight);
     }else{
         messages.innerHTML +=`<div class="alert alert-success chats" role="alert">
-      <span>${username} dice: </span>
-      <p>${msg}</p>
-  </div>`
+        <span>${data.username} dice: </span>
+        <p>${data.msg}</p>
+      </div>`
+      window.scrollTo(0, document.body.scrollHeight);
     }
   // item.textContent = msg;
 

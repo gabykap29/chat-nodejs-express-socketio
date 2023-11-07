@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for(let i = 0; i<data.length;i++){
             let username = data[i].username;
             let msg = data[i].msg;
-            messages.innerHTML +=`<div class="alert alert-success chats" role="alert">
+            messages.innerHTML +=`<div class="  alert alert-success chats" role="alert">
             <span>${username} dice: </span>
             <p>${msg}</p>
         </div>`
